@@ -1,0 +1,60 @@
+<body bgcolor="#f0f0f8">
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#6622aa">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>&lt;type 'exceptions.IOError'&gt;</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial">Python 2.7.6: /usr/bin/python<br>Mon Jun 20 14:16:19 2016</font></td></tr></table>
+    
+<p>A problem occurred in a Python script.  Here is the sequence of
+function calls leading up to the error, in the order they occurred.</p>
+<table width="100%" cellspacing=0 cellpadding=0 border=0>
+<tr><td bgcolor="#d8bbff"><big>&nbsp;</big><a href="file:///var/www/html/iot/OCR/taadhar.py">/var/www/html/iot/OCR/taadhar.py</a> in <strong><module></strong>()</td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;35</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pix[x,&nbsp;y]&nbsp;=&nbsp;(255,&nbsp;255,&nbsp;255,&nbsp;255)<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;36</small>&nbsp;<br>
+</tt></font></td></tr>
+<tr><td bgcolor="#ffccee"><tt>=&gt;<small>&nbsp;&nbsp;&nbsp;37</small>&nbsp;img.save('temp.jpg')<br>
+</tt></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;38</small>&nbsp;'''<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;39</small>&nbsp;w,h=img.size<br>
+</tt></font></td></tr>
+<tr><td><small><font color="#909090"><strong>img</strong>&nbsp;= &lt;PIL.Image.Image image mode=RGBA size=1057x702&gt;, img.<strong>save</strong>&nbsp;= &lt;bound method Image.save of &lt;PIL.Image.Image image mode=RGBA size=1057x702&gt;&gt;</font></small></td></tr></table>
+<table width="100%" cellspacing=0 cellpadding=0 border=0>
+<tr><td bgcolor="#d8bbff"><big>&nbsp;</big><a href="file:///usr/local/lib/python2.7/dist-packages/PIL/Image.py">/usr/local/lib/python2.7/dist-packages/PIL/Image.py</a> in <strong>save</strong>(self=&lt;PIL.Image.Image image mode=RGBA size=1057x702&gt;, fp='temp.jpg', format='JPEG', **params={})</td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;1682</small>&nbsp;<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;1683</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;open_fp:<br>
+</tt></font></td></tr>
+<tr><td bgcolor="#ffccee"><tt>=&gt;<small>&nbsp;1684</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fp&nbsp;=&nbsp;builtins.open(filename,&nbsp;"wb")<br>
+</tt></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;1685</small>&nbsp;<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;1686</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try:<br>
+</tt></font></td></tr>
+<tr><td><small><font color="#909090"><strong>fp</strong>&nbsp;= 'temp.jpg', <em>global</em> <strong>builtins</strong>&nbsp;= &lt;module '__builtin__' (built-in)&gt;, builtins.<strong>open</strong>&nbsp;= &lt;built-in function open&gt;, <strong>filename</strong>&nbsp;= 'temp.jpg'</font></small></td></tr></table><p><strong>&lt;type 'exceptions.IOError'&gt;</strong>: [Errno 13] Permission denied: 'temp.jpg'
+<br><tt><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>&nbsp;</tt>args&nbsp;=
+(13, 'Permission denied')
+<br><tt><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>&nbsp;</tt>errno&nbsp;=
+13
+<br><tt><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>&nbsp;</tt>filename&nbsp;=
+'temp.jpg'
+<br><tt><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>&nbsp;</tt>message&nbsp;=
+''
+<br><tt><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>&nbsp;</tt>strerror&nbsp;=
+'Permission denied'
+
+
+<!-- The above is a description of an error in a Python program, formatted
+     for a Web browser because the 'cgitb' module was enabled.  In case you
+     are not reading this in a Web browser, here is the original traceback:
+
+Traceback (most recent call last):
+  File "taadhar.py", line 37, in &lt;module&gt;
+    img.save('temp.jpg')
+  File "/usr/local/lib/python2.7/dist-packages/PIL/Image.py", line 1684, in save
+    fp = builtins.open(filename, "wb")
+IOError: [Errno 13] Permission denied: 'temp.jpg'
+
+-->
