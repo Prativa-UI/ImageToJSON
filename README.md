@@ -1,20 +1,13 @@
-# ImageToJSON
-This document for OCR
-
-![Alt text](AadhaarCardOCR.jpg?raw=true "Aadhaar Card image")
-
+![Alt text](DocumentToJSON.jpg?raw=true "Document Image")
 *****************************************************
-*Problem:
+Problem:
 *****************************************************
-	Extract information from image of Aadhaar Card by OCR in proper format.
+	Extract information from image of Aadhaar Card/PAN/Bank Cheque/Driving Licence by OCR in proper format.
 		Imformation like - 
-					Name, Year of Birth, Gender, UID
-*****************************************************
-
-
+					Name, Father's Name, DOB, Gender, UID, PAN, Address, etc.
 
 *****************************************************
-*Solution:
+Solution:
 *****************************************************
 	Steps:
 		-> Take image
@@ -24,15 +17,14 @@ This document for OCR
 		-> text(output of tesseract)
 	Now we will process this text means we will get meaningful information from it.
 		-> find name using name database
+		-> find father's name
+		-> find DOB
 		-> find gender
-		-> find year of birth
 		-> find for Aadhar ID(UID)
+		-> find PAN
+		-> find Address, etc.
 *****************************************************
-
-
-	
-*****************************************************
-*Dependent packages
+Dependent packages:
 *****************************************************
 	-python
 	-opencv
@@ -44,12 +36,9 @@ This document for OCR
 	-PIL
 	-SciPy
 	-dataparser
-*****************************************************		
-
-
 
 *****************************************************
-*Structure and Usage
+Structure and Usage:
 *****************************************************
 	Directories:
 		src-
@@ -60,7 +49,10 @@ This document for OCR
 			it contains JSON object
 			
 	Usage:
-		python file_name.py [input image]
-		Output will be JSON object name
-*****************************************************
-
+		run index.php file
+		upload image of document
+		choose type of document
+		hit process button
+			-result file
+		for process again hit button
+		for download file[json] hit download button
