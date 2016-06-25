@@ -1,29 +1,18 @@
-#!/Python27/python
+#!/usr/bin/env python
 import os
+import os.path
 import json
 import sys
 import string
 import pytesseract
 import re
-import cgitb
-import cgi
 import difflib
 import csv
-from pytesseract import image_to_string
 import dateutil.parser as dparser
 from PIL import Image, ImageEnhance, ImageFilter
-
-cgitb.enable(display=0, logdir="/var/www/html/iot/OCR/logs/")
-
-"Content-type: text/html"
-print
-print "<html><head>"
-print ""
-print "</head><body>"
-
 path = sys.argv[1]
-filepath=os.path.join("/var/www/html/iot/OCR/upload/",path)
-img = Image.open(filepath)
+
+img = Image.open(path)
 img = img.convert('RGBA')
 pix = img.load()
 
@@ -45,9 +34,8 @@ img.crop((e,f,e1,f1)).save('img3.jpg')
 texttest = pytesseract.image_to_string(Image.open('img3.jpg'))
 print(texttest)
 #'''
-idhar=Image.open('/var/www/html/iot/OCR/temp.jpg')
-idhar.load()
-text = pytesseract.image_to_string(Image.open('/var/www/html/iot/OCR/temp.jpg'))
+
+text = pytesseract.image_to_string(Image.open('temp.jpg'))
 text = filter(lambda x: ord(x)<128,text)
 
 
@@ -98,11 +86,11 @@ try:
 except:
 	pass
 
-# Open name database
-with open('dummy.csv', 'rb') as f:
+#-----------Read Database
+with open('namedb.csv', 'rb') as f:
 	reader = csv.reader(f)
 	newlist = list(reader)    
-[item for newlist in newlist for item in newlist]
+newlist = sum(newlist, [])
 
 # Searching for Name and finding closest name in database
 try:
@@ -136,21 +124,20 @@ except:
 data = {}
 data['Name'] = name
 data['Gender'] = gender
-data['Birth of year'] = ayear
+data['Birth year'] = ayear
 data['Uid'] = uid
 
-
-filename, file_extension = os.path.splitext(path)
 # Writing data into JSON
-with open('json_file/'+filename +'.json', 'w') as fp:
+with open('../result/'+ os.path.basename(sys.argv[1]).split('.')[0] +'.json', 'w') as fp:
     json.dump(data, fp)
 
-print data
+
 # Removing dummy files
 os.remove('temp.jpg')
+
 '''
 # Reading data back JSON
-with open('aadhar.json', 'r') as f:
+with open('../result/'+sys.argv[1]+'.json', 'r') as f:
      ndata = json.load(f)
 
 print "+++++++++++++++++++++++++++++++"     
@@ -158,9 +145,8 @@ print(ndata['Name'])
 print "-------------------------------"
 print(ndata['Gender'])
 print "-------------------------------"
-print(ndata['Birth of year'])
+print(ndata['Birth year'])
 print "-------------------------------"
 print(ndata['Uid'])
 print "-------------------------------"
 #'''
-print "</body></html>"
