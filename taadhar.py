@@ -2,17 +2,32 @@
 import os
 import os.path
 import json
-import sys
 import string
 import pytesseract
 import re
+import cgitb
+import cgi
+import sys
 import difflib
 import csv
 import dateutil.parser as dparser
 from PIL import Image, ImageEnhance, ImageFilter
-path = sys.argv[1]
+from pytesseract import image_to_string
 
-img = Image.open(path)
+cgitb.enable(display=0, logdir="logs/adhar")
+
+"Content-type: text/html"
+print
+print "<html><head>"
+print ""
+print "</head><body>"
+
+
+path = sys.argv[1]
+filepath=os.path.join("upload/",path)
+filename, file_extension = os.path.splitext(path)
+
+img = Image.open(filepath)
 img = img.convert('RGBA')
 pix = img.load()
 
@@ -24,18 +39,9 @@ for y in range(img.size[1]):
             pix[x, y] = (255, 255, 255, 255)
 
 img.save('temp.jpg')
-'''
-w,h=img.size
-e=int(0.2*w)
-f=int(0.1*h)
-e1=int(0.7*w)
-f1=int(0.6*h)
-img.crop((e,f,e1,f1)).save('img3.jpg')
-texttest = pytesseract.image_to_string(Image.open('img3.jpg'))
-print(texttest)
-#'''
-
-text = pytesseract.image_to_string(Image.open('temp.jpg'))
+idhar=Image.open('temp.jpg')
+idhar.load()
+text = pytesseract.image_to_string(idhar)
 text = filter(lambda x: ord(x)<128,text)
 
 
@@ -52,17 +58,22 @@ text2 = []
 
 # Searching for Year of Birth
 lines = text
+#print lines
 for wordlist in lines.split('\n'):
 	xx = wordlist.split( )
-	if ([w for w in xx if re.search('(Year|ear|Birth|irth|YoB)$', w)]):
+	if ([w for w in xx if re.search('(Year|Birth|irth|YoB|YOB:|DOB:|DOB)$', w)]):
 		yearline = wordlist
 		break
 	else:
 		text1.append(wordlist)
 try:
-	yearline = re.split('Year|Birth|irth|YoB', yearline)[1:]
-	yearline = ''.join(str(e) for e in yearline)
+	text2 = text.split(yearline,1)[1]
+except:
+	pass
 
+try:
+	yearline = re.split('Year|Birth|irth|YoB|YOB:|DOB:|DOB', yearline)[1:]
+	yearline = ''.join(str(e) for e in yearline)
 	if(yearline):
 		ayear = dparser.parse(yearline,fuzzy=True).year
 except:
@@ -72,7 +83,7 @@ except:
 try:
 	for wordlist in lines.split('\n'):
 		xx = wordlist.split( )
-		if ([w for w in xx if re.search('(Female|Male|emale|male|ale)$', w)]):
+		if ([w for w in xx if re.search('(Female|Male|emale|male|ale|FEMALE|MALE|EMALE)$', w)]):
 			genline = wordlist
 			break
 
@@ -87,10 +98,19 @@ except:
 	pass
 
 #-----------Read Database
+with open('namedb1.csv', 'rb') as f:
+	reader = csv.reader(f)
+	newlist = list(reader)    
+newlist = sum(newlist, [])
+#'''
+
+'''
+#-----------Read Database
 with open('namedb.csv', 'rb') as f:
 	reader = csv.reader(f)
 	newlist = list(reader)    
 newlist = sum(newlist, [])
+#'''
 
 # Searching for Name and finding closest name in database
 try:
@@ -99,11 +119,10 @@ try:
 		for y in x.split( ):
 			if(difflib.get_close_matches(y.upper(), newlist)):
 				nameline.append(x)
-
+				break
 	name = ''.join(str(e) for e in nameline)
 except:
 	pass
-
 
 # Searching for UID
 try:
@@ -128,8 +147,8 @@ data['Birth year'] = ayear
 data['Uid'] = uid
 
 # Writing data into JSON
-with open('../result/'+ os.path.basename(sys.argv[1]).split('.')[0] +'.json', 'w') as fp:
-    json.dump(data, fp)
+with open('json_file/'+filename + '.json', 'w') as fp:
+	json.dump(data, fp)
 
 
 # Removing dummy files
@@ -137,7 +156,7 @@ os.remove('temp.jpg')
 
 '''
 # Reading data back JSON
-with open('../result/'+sys.argv[1]+'.json', 'r') as f:
+with open('../result/'+ os.path.basename(sys.argv[1]).split('.')[0] +'.json', 'r') as f:
      ndata = json.load(f)
 
 print "+++++++++++++++++++++++++++++++"     
@@ -150,3 +169,5 @@ print "-------------------------------"
 print(ndata['Uid'])
 print "-------------------------------"
 #'''
+print ""
+print "</body></html>"
