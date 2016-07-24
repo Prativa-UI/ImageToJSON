@@ -29,9 +29,11 @@
 	<h2 class="title">Optical Character Recognition</h2>
 	<h3 class="subtitle">Extract data from documents!</h3>
 	<div class="col-md-6 col-sm-6 col-xs-12 animated fadeInRight delay-0-5 button" style="text-align:center;" style="border:5 px;">
-	<form action="up.php" enctype="multipart/form-data" method="post" style="float: right; width:100%;">
-	<input type="file" name="files[]" id="files" multiple="" directory="" webkitdirectory="" mozdirectory=""> <br/>
-	<select class="btn col-md-4 col-md-offset-3" name="typeofdoc" style="color:black; top: 0%;position: absolute;">
+
+<!--	<form action="up.php" enctype="multipart/form-data" method="post" style="float: right; width:100%;">
+	<input type="file" name="files" id="files">
+	<input type="submit" value="Upload image" name="submit">
+<!--	<select class="btn col-md-4 col-md-offset-3" name="typeofdoc" style="color:black; top: 0%;position: absolute;">
 		<option>Choose Option</option>
 		<option value="aadhaar">Aadhaar Card</option>
 		<option value="cheque">Cheque</option>
@@ -39,9 +41,16 @@
 		<option value="license">Driving License</option>
 		<option value="other">Other</option>		
 	</select>
-	<input class="btn col-md-4 col-md-offset-3" type="submit" value="Process" name="Submit" style="margin-top: 20%; color:black;" />
+	<input class="btn col-md-4 col-md-offset-3" type="submit" value="Upload & Process" name="Submit" style="margin-top: 20%; color:black;" />
 	<img class="col-md-6 col-sm-6 col-xs-12 animated fadeInLeft uimage" id="output" />
-	</form>
+	</form>-->
+	
+	<form action="upload.php" method="post" enctype="multipart/form-data">
+    Select image to upload:
+    <input type="file" name="fileToUpload" id="fileToUpload">
+    <input type="submit" value="Upload Image" name="submit">
+</form>
+	
 	</div>
 	</div>
 	</div>
