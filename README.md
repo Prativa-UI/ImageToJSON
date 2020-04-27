@@ -1,4 +1,7 @@
-![Alt text](DocumentToJSON.jpg?raw=true "Document Image")
+# Hi Prativa-UI please delete repository this repo contain some my private information.
+# Please I request you that delete this repo
+# If you want repo like this you can fork following link:
+	https://github.com/dilippuri/PAN-Card-OCR
 *****************************************************
 Problem:
 *****************************************************
